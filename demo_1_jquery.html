@@ -84,16 +84,55 @@
         background-color: #0088bb;
     }
     </style>
+    <script src="./vendor/jquery-1.12.4.js"></script>
+    <script>
+        // 监听滚动条的滚动事件   
+        // 获取滚动条滚动距离
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                // 获取滚动条离顶部的距离
+                var top = $(document).scrollTop();
+
+                var menu = $('#menu');      // 避免每次查询。
+                var items = $('#content').find('.item');    // 用id获取快
+
+                // 获取当前所在的楼层 id
+                var currentId = '';
+
+                items.each(function() {
+                    var m = $(this);
+                    var itemTop = m.offset().top;
+                    if (top>itemTop-200) {
+                        currentId = "#" + m.attr("id");
+                        // console.log(currentId);
+                    } else {
+                        return false;
+                    }
+                    
+                })
+
+                var currentLink = menu.find(".current");
+                if (currentId && currentLink.attr('href') != currentId) {
+                    currentLink.removeClass('current');
+                    menu.find('[href="' + currentId + '"]').addClass('current');
+                }
+
+
+            })
+        })
+               
+        
+    </script>
 </head>
 
 <body>
     <div id="menu">
         <ul>
-            <li><a href="#" class="current">1F 男装</a></li>
-            <li><a href="#">2F 女装</a></li>
-            <li><a href="#">3F 美妆</a></li>
-            <li><a href="#">4F 数码</a></li>
-            <li><a href="#">5F 母婴</a></li>
+            <li><a href="#item1" class="current">1F 男装</a></li>
+            <li><a href="#item2">2F 女装</a></li>
+            <li><a href="#item3">3F 美妆</a></li>
+            <li><a href="#item4">4F 数码</a></li>
+            <li><a href="#item5">5F 母婴</a></li>
         </ul>
     </div>
     <div id="content">
